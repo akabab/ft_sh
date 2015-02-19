@@ -6,11 +6,12 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/31 15:58:53 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 18:05:36 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 18:09:59 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
 void	ft_perror(const char *msg)

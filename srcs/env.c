@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 17:57:58 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 18:01:31 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 18:24:07 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	cpy_env(char *env[])
 {
 	int		i;
 
-	g_env = ft_memalloc(sizeof(*g_env) * (ENV_SIZE + 1));
+	g_env = ft_memalloc(sizeof(char *) * (ENV_SIZE + 1));
 	if (!g_env)
 	{
 		ft_putendl("malloc failed.");

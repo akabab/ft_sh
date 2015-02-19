@@ -6,11 +6,11 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/26 16:39:11 by ycribier          #+#    #+#              #
-#    Updated: 2015/01/29 19:50:52 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/19 18:08:42 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	cc -g -O2 $(FLAGS)
+CC		=	gcc -O2 $(FLAGS)
 FLAGS	=	-Wall -Wextra -Werror
 NAME	=	libft.a
 INCLUDES=	./includes
