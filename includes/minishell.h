@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:56:21 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 11:01:58 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 14:17:39 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,20 @@ typedef struct	s_cmd
 	char		**av;
 }				t_cmd;
 
+typedef struct	s_builtin
+{
+	char		*name;
+	void		*f;
+}				t_builtin;
+
 /*
 **		env_tools.c
 */
-int		get_env_len(char **env);
-int		get_env_value_index(char *name);
-char	*get_env_value(char *name);
-int		del_env_value(char *name);
-int		add_env_value(char *name, char *value);
+int		get_env_len(void);
+int		get_env_value_index(char *key);
+char	*get_env_value(char *key);
+int		del_env_value(char *key);
+int		add_env_value(char *key, char *value);
 
 /*
 **		env.c
@@ -57,5 +63,22 @@ void	change_dir(t_cmd *cmd);
 **		cmd.c
 */
 char	*get_cmd_path(char *cmd);
+void	free_cmd(t_cmd *cmd);
+
+/*
+**		COLOR
+*/
+# define RED		"31"
+# define GREEN		"32"
+# define YELLOW		"33"
+# define BLUE		"34"
+# define PINK		"35"
+# define GRBL		"36"
+# define GREY		"37"
+# define NO			"0"
+# define C(X)		"\033["X"m"
+# define CC(X)		"\033[3"X"m"
+# define CB(X)		"\x1B[48;1;"X"m"
+# define CBNO		"\x1B[0m"
 
 #endif

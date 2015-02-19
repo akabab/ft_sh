@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:58:07 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 11:15:17 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 14:18:06 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,20 @@
 void	print_prompt(void)
 {
 	char	*pwd;
+	char	*home;
+	char	*home_ptr;
+	char	*user;
 
 	if ((pwd = get_env_value("PWD")))
-		ft_putstr(pwd);
+	{
+		home = get_env_value("HOME");
+		user = get_env_value("USER");
+		ft_printf("[%s:", user);
+		if ((home_ptr = ft_strstr(pwd, home)))
+			ft_printf(C(RED)"~%s"C(NO)"]", home_ptr + ft_strlen(home));
+		else
+			ft_printf(C(RED)"%s"C(NO)"]", pwd);
+	}
 	ft_putstr("$> ");
 }
 
@@ -32,7 +43,7 @@ void	split_cmd(char *entry, t_cmd *cmd)
 
 	tmp = ft_strsplit(entry, ' ');
 	if (!tmp)
-		ft_printf("split failed.\n");
+		ft_putendl("split failed.");
 	ac = 0;
 	while (tmp[ac])
 		ac++;
@@ -49,12 +60,12 @@ void	execute_cmd(t_cmd *cmd)
 
 	pid = fork();
 	if (pid < 0)
-		ft_printf("fork failed.\n");
+		ft_putendl("fork failed.");
 	if (pid == 0)
 	{
 		execve(cmd->path, cmd->av, g_env);
 		ft_printf("%s: no such file or directory.\n", cmd->path);
-		_exit(1);
+		exit(1);
 	}
 	else
 		wait(&sig);
@@ -68,7 +79,7 @@ void	execute(char *entry)
 	if (!cmd.name)
 		return ;
 	else if (ft_strequ(cmd.name, "exit"))
-		_exit(1);
+		exit(1);
 	else if (ft_strequ(cmd.name, "cd"))
 		change_dir(&cmd);
 	else if (ft_strequ(cmd.name, "env"))
@@ -85,6 +96,7 @@ void	execute(char *entry)
 			cmd.path = cmd.name;
 		execute_cmd(&cmd);
 	}
+	free_cmd(&cmd);
 }
 
 int		main(void)
@@ -97,7 +109,7 @@ int		main(void)
 		entry = NULL;
 		print_prompt();
 		if (get_next_line(0, &entry) == 0)
-			_exit(1);
+			exit(1);
 		execute(entry);
 		free(entry);
 	}

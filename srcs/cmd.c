@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/31 15:31:29 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/18 14:40:44 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 14:18:26 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,47 @@
 #include "minishell.h"
 #include "libft.h"
 
-char	*get_cmd_path(char *cmd)
+static char		*get_path_from_env(char *cmd, char **cmds_path_tab)
+{
+	char	*cmd_path;
+	int		i;
+
+	i = 0;
+	while (cmds_path_tab && cmds_path_tab[i])
+	{
+		cmd_path = ft_strjoin3(cmds_path_tab[i], "/", cmd);
+		if (access(cmd_path, F_OK) == 0)
+		{
+			if (access(cmd_path, X_OK) == 0)
+				return (cmd_path);
+			else
+				ft_printf("%s: permission denied.\n", cmd);
+		}
+		free(cmd_path);
+		i++;
+	}
+	return (NULL);
+}
+
+char			*get_cmd_path(char *cmd)
 {
 	char	*path_value;
 	char	**cmds_path_tab;
 	char	*cmd_path;
 
-	path_value = get_env_value("PATH");
-	if (path_value)
+	cmd_path = NULL;
+	if ((path_value = get_env_value("PATH")))
 	{
 		cmds_path_tab = ft_strsplit(path_value, ':');
-		while (cmds_path_tab && *cmds_path_tab)
-		{
-			cmd_path = ft_strjoin3(*cmds_path_tab, "/", cmd);
-			if (access(cmd_path, F_OK) == 0)
-			{
-				if (access(cmd_path, X_OK) == 0)
-					return (cmd_path);
-				ft_printf("%s: permission denied.\n", cmd);
-			}
-			cmds_path_tab++;
-		}
+		cmd_path = get_path_from_env(cmd, cmds_path_tab);
+		free_tab(&cmds_path_tab);
 	}
-	return (NULL);
+	return (cmd_path);
+}
+
+void			free_cmd(t_cmd *cmd)
+{
+	free_tab(&cmd->av);
+	if (cmd->path != cmd->name)
+		free(cmd->path);
 }
