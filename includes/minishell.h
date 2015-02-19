@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:56:21 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 14:17:39 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 18:02:07 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@
 
 # define ENV_SIZE 2048
 
-extern char	**environ;
-
-char	**g_env;
+char		**g_env;
 
 typedef struct	s_cmd
 {
@@ -31,39 +29,38 @@ typedef struct	s_cmd
 	char		**av;
 }				t_cmd;
 
-typedef struct	s_builtin
-{
-	char		*name;
-	void		*f;
-}				t_builtin;
+/*
+**		env_tools.c
+*/
+void			print_prompt(void);
 
 /*
 **		env_tools.c
 */
-int		get_env_len(void);
-int		get_env_value_index(char *key);
-char	*get_env_value(char *key);
-int		del_env_value(char *key);
-int		add_env_value(char *key, char *value);
+int				get_env_len(void);
+int				get_env_value_index(char *key);
+char			*get_env_value(char *key);
+int				del_env_value(char *key);
+int				add_env_value(char *key, char *value);
 
 /*
 **		env.c
 */
-void	unset_env(t_cmd *cmd);
-void	set_env(t_cmd *cmd);
-void	print_env(void);
-void	cpy_env(void);
+void			unset_env(t_cmd *cmd);
+void			set_env(t_cmd *cmd);
+void			print_env(void);
+void			cpy_env(char *env[]);
 
 /*
 **		cd.c
 */
-void	change_dir(t_cmd *cmd);
+void			change_dir(t_cmd *cmd);
 
 /*
 **		cmd.c
 */
-char	*get_cmd_path(char *cmd);
-void	free_cmd(t_cmd *cmd);
+char			*get_cmd_path(char *cmd);
+void			free_cmd(t_cmd *cmd);
 
 /*
 **		COLOR

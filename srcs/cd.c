@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 20:10:37 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 11:09:09 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 17:55:38 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int		cd_check_access(char *path)
 	return (0);
 }
 
-void	change_dir(t_cmd *cmd)
+void			change_dir(t_cmd *cmd)
 {
 	char	*path;
 

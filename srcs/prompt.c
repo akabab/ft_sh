@@ -1,39 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_perror.c                                        :+:      :+:    :+:   */
+/*   prompt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/12/31 15:58:53 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 18:05:36 by ycribier         ###   ########.fr       */
+/*   Created: 2015/02/19 17:54:56 by ycribier          #+#    #+#             */
+/*   Updated: 2015/02/19 17:55:08 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_perror(const char *msg)
+void	print_prompt(void)
 {
-	extern const int		errno;
-	extern const char		*sys_errlist[];
+	char	*pwd;
+	char	*home;
+	char	*home_ptr;
+	char	*user;
 
-	if (msg)
+	if ((pwd = get_env_value("PWD")))
 	{
-		ft_putstr_fd(msg, 2);
-		ft_putstr_fd(": ", 2);
+		home = get_env_value("HOME");
+		user = get_env_value("USER");
+		ft_printf("[%s:", user);
+		if ((home_ptr = ft_strstr(pwd, home)))
+			ft_printf("~%s]", home_ptr + ft_strlen(home));
+		else
+			ft_printf("%s]", pwd);
 	}
-	ft_putendl_fd(sys_errlist[errno], 2);
-}
-
-void	error_msg(char *message)
-{
-	if (message)
-		ft_putendl_fd(message, 2);
-}
-
-void	error_msg_exit(char *message)
-{
-	error_msg(message);
-	exit(-1);
+	ft_putstr("$> ");
 }

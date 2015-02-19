@@ -6,17 +6,18 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/26 16:39:11 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/18 14:43:06 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/19 17:56:26 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC				=	gcc
-FLAGS			=	-O2 -Wall -Wextra -Werror
+FLAGS			=	-Wall -Wextra -Werror
 NAME			=	ft_minishell1
 LIB				=	libft/libft.a
 LIB_PATH		=	libft/
 INCLUDES		=	-I $(LIB_PATH)./includes -I ./includes
 SRCS			=	srcs/minishell.c				\
+					srcs/prompt.c					\
 					srcs/cmd.c						\
 					srcs/env.c						\
 					srcs/env_tools.c				\

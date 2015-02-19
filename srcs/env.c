@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 17:57:58 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 11:11:45 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 18:01:31 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	print_env(void)
 	}
 }
 
-void	cpy_env(void)
+void	cpy_env(char *env[])
 {
 	int		i;
 
@@ -55,9 +55,9 @@ void	cpy_env(void)
 		return ;
 	}
 	i = 0;
-	while (environ && environ[i])
+	while (env && env[i])
 	{
-		g_env[i] = ft_strdup(environ[i]);
+		g_env[i] = ft_strdup(env[i]);
 		i++;
 	}
 	g_env[i] = NULL;

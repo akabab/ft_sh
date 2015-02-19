@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:58:07 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 14:18:06 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/19 18:01:52 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,14 @@
 #include "libft.h"
 #include "minishell.h"
 
-void	print_prompt(void)
+void	clean_entry(char *entry)
 {
-	char	*pwd;
-	char	*home;
-	char	*home_ptr;
-	char	*user;
-
-	if ((pwd = get_env_value("PWD")))
+	while (entry && *entry)
 	{
-		home = get_env_value("HOME");
-		user = get_env_value("USER");
-		ft_printf("[%s:", user);
-		if ((home_ptr = ft_strstr(pwd, home)))
-			ft_printf(C(RED)"~%s"C(NO)"]", home_ptr + ft_strlen(home));
-		else
-			ft_printf(C(RED)"%s"C(NO)"]", pwd);
+		if (*entry == '\t')
+			*entry = ' ';
+		entry++;
 	}
-	ft_putstr("$> ");
 }
 
 void	split_cmd(char *entry, t_cmd *cmd)
@@ -41,6 +31,7 @@ void	split_cmd(char *entry, t_cmd *cmd)
 	char	**tmp;
 	int		ac;
 
+	clean_entry(entry);
 	tmp = ft_strsplit(entry, ' ');
 	if (!tmp)
 		ft_putendl("split failed.");
@@ -64,7 +55,7 @@ void	execute_cmd(t_cmd *cmd)
 	if (pid == 0)
 	{
 		execve(cmd->path, cmd->av, g_env);
-		ft_printf("%s: no such file or directory.\n", cmd->path);
+		ft_printf("%s: command not found.\n", cmd->path);
 		exit(1);
 	}
 	else
@@ -99,16 +90,18 @@ void	execute(char *entry)
 	free_cmd(&cmd);
 }
 
-int		main(void)
+int		main(int ac, char *av[], char *env[])
 {
 	char	*entry;
 
-	cpy_env();
+	(void)ac;
+	(void)av;
+	cpy_env(env);
 	while (1)
 	{
 		entry = NULL;
 		print_prompt();
-		if (get_next_line(0, &entry) == 0)
+		if (get_next_line(0, &entry) == -1)
 			exit(1);
 		execute(entry);
 		free(entry);
