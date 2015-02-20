@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:56:21 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 18:02:07 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/20 18:23:25 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@ void			change_dir(t_cmd *cmd);
 **		cmd.c
 */
 char			*get_cmd_path(char *cmd);
+void			clean_path(char **path);
 void			free_cmd(t_cmd *cmd);
+
+/*
+**		signal.c
+*/
+void			signal_reset(void);
+void			sigint_one(int sig);
+void			sigint_two(int sig);
 
 /*
 **		COLOR

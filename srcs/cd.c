@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 20:10:37 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 17:55:38 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/20 18:29:07 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,13 @@ void			change_dir(t_cmd *cmd)
 			cd_home();
 		else if (ft_strequ(path, "-"))
 			cd_oldpwd();
-		else if (cd_check_access(path))
-			chdir(path);
+		else
+		{
+			clean_path(&path);
+			if (cd_check_access(path))
+				chdir(path);
+			free(path);
+		}
 	}
 	else
 		ft_putendl("usage: cd [path] | [~] (HOME) | [-] (OLDPWD)");

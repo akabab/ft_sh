@@ -6,7 +6,7 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/26 16:39:11 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/19 17:56:26 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/20 14:32:41 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS			=	srcs/minishell.c				\
 					srcs/cmd.c						\
 					srcs/env.c						\
 					srcs/env_tools.c				\
+					srcs/signal.c					\
 					srcs/cd.c
 OBJS			=	$(SRCS:srcs/%.c=objs/%.o)
 

@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/02/19 17:54:56 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/20 16:12:27 by ycribier         ###   ########.fr       */
+/*   Created: 2014/01/09 23:31:54 by ycribier          #+#    #+#             */
+/*   Updated: 2015/02/20 15:53:15 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <signal.h>
 #include "minishell.h"
 
-void	print_prompt(void)
+void			signal_reset(void)
 {
-	char	*pwd;
-	char	*home;
-	char	*home_ptr;
-	char	*user;
+	signal(SIGINT, SIG_DFL);
+}
 
-	if ((pwd = get_env_value("PWD")))
+void			sigint_one(int sig)
+{
+	if (sig == SIGINT)
+		ft_putchar('\n');
+}
+
+void			sigint_two(int sig)
+{
+	if (sig == SIGINT)
 	{
-		home = get_env_value("HOME");
-		user = get_env_value("USER");
-		ft_printf("[%s:", user);
-		if ((home_ptr = ft_strstr(pwd, home)))
-			ft_printf("~%s]", home_ptr + ft_strlen(home));
-		else
-			ft_printf("%s]", pwd);
+		ft_putchar('\n');
+		print_prompt();
 	}
-	ft_putstr("$> ");
 }

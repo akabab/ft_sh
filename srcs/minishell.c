@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:58:07 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/19 18:01:52 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/20 15:56:33 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,16 @@ void	execute_cmd(t_cmd *cmd)
 		ft_putendl("fork failed.");
 	if (pid == 0)
 	{
+		signal_reset();
 		execve(cmd->path, cmd->av, g_env);
 		ft_printf("%s: command not found.\n", cmd->path);
 		exit(1);
 	}
 	else
+	{
+		signal(SIGINT, sigint_one);
 		wait(&sig);
+	}
 }
 
 void	execute(char *entry)
@@ -101,8 +105,9 @@ int		main(int ac, char *av[], char *env[])
 	{
 		entry = NULL;
 		print_prompt();
-		if (get_next_line(0, &entry) == -1)
-			exit(1);
+		signal(SIGINT, sigint_two);
+		if (get_next_line(0, &entry) != 1)
+			exit(0);
 		execute(entry);
 		free(entry);
 	}
