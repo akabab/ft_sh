@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/03 21:56:21 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/20 18:23:25 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/23 16:10:18 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void			change_dir(t_cmd *cmd);
 **		cmd.c
 */
 char			*get_cmd_path(char *cmd);
-void			clean_path(char **path);
 void			free_cmd(t_cmd *cmd);
 
 /*

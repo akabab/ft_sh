@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/01/04 20:10:37 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/20 18:29:07 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/23 16:23:28 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,23 +73,27 @@ static int		cd_check_access(char *path)
 void			change_dir(t_cmd *cmd)
 {
 	char	*path;
+	char	*home;
+	char	*tmp;
 
-	if (cmd->ac < 3)
-	{
-		path = cmd->av[1];
-		if (cmd->ac == 1 || ft_strequ(path, "~"))
-			cd_home();
-		else if (ft_strequ(path, "-"))
-			cd_oldpwd();
-		else
-		{
-			clean_path(&path);
-			if (cd_check_access(path))
-				chdir(path);
-			free(path);
-		}
-	}
-	else
+	if (cmd->ac > 2)
 		ft_putendl("usage: cd [path] | [~] (HOME) | [-] (OLDPWD)");
+	path = (cmd->ac > 1) ? ft_strdup(cmd->av[1]) : NULL;
+	if (cmd->ac == 1 || ft_strequ(path, "~"))
+		cd_home();
+	else if (ft_strequ(path, "-"))
+		cd_oldpwd();
+	else
+	{
+		if (ft_strstr(path, "~") && (home = get_env_value("HOME")))
+		{
+			tmp = path;
+			path = ft_strreplace(path, "~", home);
+			free(tmp);
+		}
+		if (cd_check_access(path))
+			chdir(path);
+	}
+	free(path);
 	cd_update_env();
 }

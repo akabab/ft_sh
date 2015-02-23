@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/12/31 15:31:29 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/20 18:27:10 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/23 16:10:15 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,6 @@ char			*get_cmd_path(char *cmd)
 		free_tab(&cmds_path_tab);
 	}
 	return (cmd_path);
-}
-
-#include <stdio.h>
-
-void			clean_path(char **path)
-{
-	char	**tab;
-	char	*home;
-	char	*clean_path;
-
-	if (!(home = get_env_value("HOME")))
-		return ;
-	if (ft_strchr(*path, '~'))
-	{
-		tab = ft_strsplit_once(*path, '~');
-		// printf("%s-%p\n", tab[0], tab[0]);
-		// printf("%s-%p\n", tab[1], tab[1]);
-		if ((clean_path = ft_strjoin3(tab[0], home, tab[1])))
-		{
-			free_tab(&tab);
-			// free(*path);
-			*path = clean_path;
-		}
-	}
 }
 
 void			free_cmd(t_cmd *cmd)

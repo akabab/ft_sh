@@ -6,7 +6,7 @@
 /*   By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/11/20 20:09:01 by ycribier          #+#    #+#             */
-/*   Updated: 2015/02/20 17:51:01 by ycribier         ###   ########.fr       */
+/*   Updated: 2015/02/23 16:22:44 by ycribier         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char				*ft_strjoin3(char const *a, char const *b, char const *c);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				**ft_strsplit_once(char const *s, char c);
+char				*ft_strreplace(char *src, char *from, char *to);
 
 int					ft_str_isdigit(char *str);
 

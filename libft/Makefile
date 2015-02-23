@@ -6,7 +6,7 @@
 #    By: ycribier <ycribier@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2013/11/26 16:39:11 by ycribier          #+#    #+#              #
-#    Updated: 2015/02/19 18:08:42 by ycribier         ###   ########.fr        #
+#    Updated: 2015/02/23 16:23:19 by ycribier         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS	=	ft_memset.c					\
 			ft_strjoin.c				\
 			ft_strtrim.c				\
 			ft_strsplit.c				\
+			ft_strreplace.c				\
 			ft_itoa.c					\
 			ft_putchar.c				\
 			ft_putchar_fd.c				\
